@@ -71,7 +71,7 @@ It is recommended to use a virtual environment to manage dependencies. Follow th
 
 1. Create a Virtual Environment
 ```bash 
-python -m venv \c\path\to\your\workspace\.venv
+python -m venv .venv
 ```
 **Note: Ensure you include the .venv at the end of the installation path** \ 
 2. Activate the Virtual Environment

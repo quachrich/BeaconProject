@@ -5,8 +5,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-import logging
-from bs4 import BeautifulSoup
+import logging, os #Standard system imports
+from dotenv import load_dotenv
+from bs4 import BeautifulSoup #To pass a selenium object to bs4 in .get_soup()
+
+load_dotenv()
+
+load_dotenv()
+CHROMEDRIVER_DIRECTORY = os.getenv("CHROMEDRIVER_PATH",default = None)
+if CHROMEDRIVER_DIRECTORY is None:
+    raise FileExistsError("CHROMEDRIVER_PATH not found in .env file. Ensure that a .env file has been configured with a CHROMEDRIVER_PATH variable")
+CHROMEDRIVER_PATH = os.path.join(CHROMEDRIVER_DIRECTORY,'chromedriver.exe')
 
 logging.basicConfig(
     level=logging.INFO,
@@ -29,7 +38,7 @@ class WebDriver:
     <memory_structure>: a data structure to hold values for later use
     """
     def __init__(self,headless = False,memory_structure = []):
-        service =  Service(executable_path=r"C:\Users\mruss\projects\redtail\chromedriver.exe")
+        service =  Service(executable_path=CHROMEDRIVER_PATH)
         if not headless:
             self.driver = webdriver.Chrome(service=service)
         else:
