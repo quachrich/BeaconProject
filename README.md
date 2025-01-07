@@ -54,7 +54,9 @@ Here is an example of what your `.env` file should look like:
 ```properties
 CHROMEDRIVER_PATH=C:\path\to\your\chromedriver
 ```
-With an updating path to your chromedriver instead of the placeholder variable.
+With an updating path to your chromedriver instead of the placeholder variable. \
+*Note that including chromedriver.exe at the end of the CHROMEDRIVER_PATH variable is not neccesary*
+
 #### Ignoring `.env` with git
 Make sure your `.env` file is listed in a `.gitignore` file to prevent it from being committed to the repository. Your `.gitignore` file should include
 ```properties
@@ -69,8 +71,9 @@ It is recommended to use a virtual environment to manage dependencies. Follow th
 
 1. Create a Virtual Environment
 ```bash 
-python -m venv \c\path\to\your\workspace
+python -m venv \c\path\to\your\workspace\.venv
 ```
+**Note: Ensure you include the .venv at the end of the installation path** \ 
 2. Activate the Virtual Environment
 - On Windows:
 ```bash
