@@ -1,4 +1,4 @@
-# Red Tail Data Engineering
+# EasySelenium
 # Table of Contents
 1. [Overview](#overview)
 2. [Directory Structure](#directory-structure)
