@@ -123,45 +123,11 @@ elements = driver.find_elements_by_id('element_id', wait=10, errors='raise')
 - `wait`: Time in seconds to wait for the elements to be present. Defaults to `None`.
 - `errors`: Error handling strategy. If `'raise'`, an exception will be raised on error. If `'coerce'`, the error will be printed and the program will continue.
 
-#### `find_element_by_css`
 
-```python
-element = driver.find_element_by_css('.element_class', wait=10, errors='raise')
-```
-
-- `css_tag`: The CSS selector of the element to find.
-- `wait`: Time in seconds to wait for the element to be present. Defaults to `False`.
-- `errors`: Error handling strategy. If `'raise'`, an exception will be raised on error. If `'coerce'`, the error will be printed and the program will continue.
-
-#### `find_elements_by_css`
-
-```python
-elements = driver.find_elements_by_css('.element_class', wait=10, errors='raise')
-```
-
-- `css_tag`: The CSS selector of the elements to find.
-- `wait`: Time in seconds to wait for the elements to be present. Defaults to `None`.
-- `errors`: Error handling strategy. If `'raise'`, an exception will be raised on error. If `'coerce'`, the error will be printed and the program will continue.
-
-#### `find_element_by_class`
-
-```python
-element = driver.find_element_by_class('element_class', wait=10, errors='raise')
-```
-
-- `class_name`: The class name of the element to find.
-- `wait`: Time in seconds to wait for the element to be present. Defaults to `None`.
-- `errors`: Error handling strategy. If `'raise'`, an exception will be raised on error. If `'coerce'`, the error will be printed and the program will continue.
-
-#### `find_elements_by_class`
-
-```python
-elements = driver.find_elements_by_class('element_class', wait=10, errors='raise')
-```
-
-- `class_name`: The class name of the elements to find.
-- `wait`: Time in seconds to wait for the elements to be present. Defaults to `None`.
-- `errors`: Error handling strategy. If `'raise'`, an exception will be raised on error. If `'coerce'`, the error will be printed and the program will continue.
+EasySelenium can also be used to search by *class, css selector, and by xpath* with similar syntax, using:
+- `find_element_by_class` and `find_elements_by_class` to search by class
+- `find_element_by_css` and `find_elements_by_css`to search by css selector
+- `find_element_by_xpath` and `find_elements_by_xpath` to search by xpath
 
 ### Example Usage
 
