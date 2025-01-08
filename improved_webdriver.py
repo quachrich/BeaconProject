@@ -147,6 +147,49 @@ class WebDriver:
                 WebDriverWait(self.driver, wait).until(EC.presence_of_element_located((By.ID, id)))
             return self.driver.find_elements(By.ID, id)
 
+
+    def find_element_by_xpath(self, xpath, wait=None, errors='raise'):
+        """
+        Find an element by its ID.
+
+        :param xpath: The XPATH of the element.
+        :param wait: Time to wait for the element to be present.
+        :param errors: Error handling strategy ('raise' or 'coerce').
+        :return: The found element.
+        """
+        if errors == 'coerce':
+            try:
+                if wait:
+                    WebDriverWait(self.driver, wait).until(EC.presence_of_element_located((By.XPATH, xpath)))
+                return self.driver.find_element(By.XPATH, xpath)
+            except Exception as e:
+                print(f"Error finding element by XPATH: {e}")
+        else:
+            if wait:
+                WebDriverWait(self.driver, wait).until(EC.presence_of_element_located((By.XPATH, xpath)))
+            return self.driver.find_element(By.XPATH, xpath)
+
+    def find_element_by_xpath(self, xpath, wait=None, errors='raise'):
+        """
+        Find multiple elements by their XPATH.
+
+        :param xpath: The XPATH of the elements.
+        :param wait: Time to wait for the elements to be present.
+        :param errors: Error handling strategy ('raise' or 'coerce').
+        :return: The found elements.
+        """
+        if errors == 'coerce':
+            try:
+                if wait:
+                    WebDriverWait(self.driver, wait).until(EC.presence_of_element_located((By.XPATH, xpath)))
+                return self.driver.find_elements(By.XPATH, xpath)
+            except Exception as e:
+                print(f"Error finding element by XPATH: {e}")
+        else:
+            if wait:
+                WebDriverWait(self.driver, wait).until(EC.presence_of_element_located((By.XPATH, xpath)))
+            return self.driver.find_elements(By.XPATH, xpath)
+    
     def find_element_by_css(self, css_tag, wait=False, errors='raise'):
         """
         Find an element by its CSS selector.
