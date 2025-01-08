@@ -31,8 +31,8 @@ redtail/
 ## Usage
 To easily download all repo code onto your local machine use:
 ```git
-git clone https://github.com/JoeyRussoniello/RedTailCodeBase
-cd RedTailCodeBase
+git clone https://github.com/JoeyRussoniello/EasySelenium
+cd EasySelenium
 ```
 Code will not run out-of-the-box unless the dependencies have all been successfully installed. See [Virutal Environment Setup Instructions](#setting-up-a-virtual-environment) for details
 
