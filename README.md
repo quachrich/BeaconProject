@@ -129,6 +129,11 @@ EasySelenium can also be used to search by *class, css selector, and by xpath* w
 - `find_element_by_css` and `find_elements_by_css`to search by css selector
 - `find_element_by_xpath` and `find_elements_by_xpath` to search by xpath
 
+### `get_soup`
+```
+#Returns a BeautifulSoup html parser of the JS-rendered page. 
+soup = driver.get_soup()
+```
 ### Example Usage
 
 ```python
@@ -143,6 +148,8 @@ with WebDriver(headless=True) as driver:
     elements = driver.find_elements_by_class('example_class', wait=10, errors='coerce')
     for elem in elements:
         print(elem.text)
+    #Create a BeautifulSoup parser of the driver (post JS-rendering)
+    soup = driver.get_soup()
 ```
 ## Updating Chromedriver
 
