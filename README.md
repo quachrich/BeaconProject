@@ -37,8 +37,6 @@ cd EasySelenium
 ```
 Code will not run out-of-the-box unless the dependencies have all been successfully installed. See [Virutal Environment Setup Instructions](#setting-up-a-virtual-environment) for details
 
-#### **NOTE: All webscrapers were developed on a windows OS, and some have `\\` style paths left in the code. These are being gradually replaced with safer os.path.joins, but at the moment, some webscrapers may not function out-of-box on UNIX systems**
-
 ### Setting Up the `.env` File
 
 To configure the project, it is recommended to set up a  `.env` file in the root directory of the project. This file will store environment-specific variables such as paths and credentials, when not given the `CHROMEDRIVER_PATH` will default to your current working directory.
