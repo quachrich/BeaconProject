@@ -185,5 +185,7 @@ update_driver('mac-arm64')
 
 This will download the most recent chromedriver for the specified platform and place it in the directory specified by the `CHROMEDRIVER_PATH` environment variable. If `CHROMEDRIVER_PATH` is not set, it will use the directory of the script.
 
+This function will be called automatically during the `improved_webdriver.WebDriver` object initialization if it raises an error on its first attempt. 
+
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
