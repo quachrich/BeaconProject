@@ -94,12 +94,21 @@ driver = WebDriver(headless=True)
 
 # Initialize WebDriver with a custom memory structure
 driver = WebDriver(memory_structure={})
+
+#Initialize WebDriver, if unsuccesful try updating the chromedriver for windows and initialize again
+driver = WebDriver(headless = True, platform = 'win64')
 ```
 
 #### Parameters
 
-- `headless`: A boolean to determine whether the opened page will be visible. If `True`, the browser will run in headless mode (no GUI).
+- `headless`: A boolean to determine whether the opened page will be visible. If `True`, the browser will run in headless mode (no GUI). Defaults to `False`.
 - `memory_structure`: A data structure to hold values for later use. Defaults to an empty list.
+- `platform`: In case of initialization failure, attempt to update `chromedriver.exe` by calling `update_drivers.update_chromedriver(platform)`. Defaults to 'win64' The available platforms are:
+    - `linux64`
+    - `mac-arm64`
+    - `mac-x64`
+    - `win32`
+    - `win64`
 
 ### Methods
 
