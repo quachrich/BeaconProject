@@ -1,4 +1,5 @@
 #Webscraper selenium Imports
+from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,6 +9,7 @@ from selenium.webdriver.chrome.service import Service
 import logging, os #Standard system imports
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup #To pass a selenium object to bs4 in .get_soup()
+from update_drivers import update_driver
 
 load_dotenv()
 logging.basicConfig(
@@ -40,7 +42,7 @@ class WebDriver:
     <headless>: boolean to determine whether to opened page will be visible
     <memory_structure>: a data structure to hold values for later use
     """
-    def __init__(self, headless=False, memory_structure=[]):
+    def __init__(self, headless=False, memory_structure=[],platform='win64'):
         """
         Initialize the WebDriver instance.
 
@@ -48,15 +50,19 @@ class WebDriver:
         :param memory_structure: A data structure to hold values for later use.
         """
         service =  Service(executable_path=CHROMEDRIVER_PATH)
-        if not headless:
-            self.driver = webdriver.Chrome(service=service)
-        else:
-            options = Options()
+        options = Options()
+        if headless:
             options.add_argument("--window-size=1920,1080")
             options.add_argument("--headless=new")
             options.add_argument("--disable-gpu")
             options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
+        try:
             self.driver = webdriver.Chrome(service=service,options= options)
+        #If driver initialization didn't work, attempt to update the driver
+        except: 
+            logging.warning("Driver initialization failed, attempting to update driver")
+            update_driver('win64')
+            self.driver = webdriver.Chrome(service= service,options= options)
         self.memory = memory_structure
         logging.info("Webdriver opened")
     
@@ -306,7 +312,44 @@ class WebDriver:
         """
         html_content = self.get_page_source()
         return BeautifulSoup(html_content, 'html.parser')
+    
+    def wait_for_page_change(self,interval = 1,max_wait = None, verbose = False):
+        """
+        Waits for the page to change by comparing the url at regular intervals.
 
+        Args:
+            interval (int): The time to wait between checks, in seconds. Default is 1 second.
+            max_wait (int, optional): The maximum time to wait for the page to change, in seconds. 
+                                    If None, the function will wait indefinitely. Default is None.
+
+        Raises:
+            TimeoutError: If the maximum wait time is reached without the page changing.
+        
+        Returns:
+            None: If the page changes succesfully within the given time
+        """
+        original_page = self.get_current_link()
+        if verbose:
+            logging.info(f"Original webpage {original_page}")
+        if max_wait is not None:
+            for i in range(max_wait/interval):
+                new_page = self.get_current_link()
+                #Wait for the link change
+                if original_page != new_page:
+                    if verbose:
+                        logging.info(f"Page change found: {new_page}")
+                    return 
+                sleep(interval)
+            #If we hit the end of the for loop
+            raise TimeoutError(f"max_time of {max_wait} seconds reached without page change")
+        else:
+            #Don't cap with an error, just loop indefinitely
+            new_page = original_page
+            while original_page == new_page:
+                new_page = self.get_current_link()
+                sleep(interval)
+            if verbose:
+                logging.info(f"Page change found: {new_page}")
     def close(self):
         """
         Close the WebDriver.
