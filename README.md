@@ -13,65 +13,14 @@
 ## Overview
 The EasySelenium project is designed to make the `Selenium` module a little bit easier to use. It supports automatic chromedriver updates, and shorter syntax for finding_elements. 
 
-## Directory Structure
-
-```
-redtail/
-├──improved_webdriver.py
-├──update_drivers.py
-├──example_project.py
-├── README.md
-├── chromedriver.exe
-└── requirements.txt
-```
-
 ### Modules
 - `improved_webdriver.py`: Contains the `WebDriver` class, which simplifies the use of Selenium WebDriver for web scraping. It includes methods for navigating web pages, finding elements with built-in EC delays, and passing Selenium content to BeautifulSoup.
 - `update_drivers.py`: Contains the `update_chromedriver` functions, which sends an HTML request, downloading the most recent version of *chromedriver.exe* in place, overwriting the existing chromedriver with the most recent version
 
 ## Configuration
-To easily download all repo code onto your local machine use:
-```git
-git clone https://github.com/JoeyRussoniello/EasySelenium
-cd EasySelenium
-```
-Code will not run out-of-the-box unless the dependencies have all been successfully installed. See [Virutal Environment Setup Instructions](#setting-up-a-virtual-environment) for details
-
-### Setting Up the `.env` File
-
-To configure the project, it is recommended to set up a  `.env` file in the root directory of the project. This file will store environment-specific variables such as paths and credentials, when not given the `CHROMEDRIVER_PATH` will default to your current working directory.
-
-#### Example `.env` File
-
-Here is an example of what your `.env` file should look like:
-
-```properties
-CHROMEDRIVER_PATH=C:\path\to\your\chromedriver
-```
-With an updating path to your chromedriver instead of the placeholder variable. \
-*Note that including chromedriver.exe at the end of the CHROMEDRIVER_PATH variable is not neccesary*
-
-### Setting Up a Virtual Environment
-It is recommended to use a virtual environment to manage dependencies. Follow these steps to create and activate a virtual environment
-
-1. Create a Virtual Environment
-```bash 
-python -m venv .venv
-```
-**Note: Ensure you include the .venv at the end of the installation path** \ 
-2. Activate the Virtual Environment
-- On Windows:
+To easily download all repo code onto your local machine download the selenium-easy module from pip
 ```bash
-.\.venv\Scripts\activate
-```
-- On macOS and Linux:
-```bash
-source .venv/bin/activate
-```
-3. Install Dependencies
-With the virtual environment activated, install the required dependencies using the `requirements.txt` file
-```bash
-pip install -r requirements.txt
+pip install selenium-easy
 ```
 # Usage
 
@@ -183,9 +132,8 @@ update_driver('win64')
 update_driver('mac-arm64')
 ```
 
-This will download the most recent chromedriver for the specified platform and place it in the directory specified by the `CHROMEDRIVER_PATH` environment variable. If `CHROMEDRIVER_PATH` is not set, it will use the directory of the script.
+This will download the most recent chromedriver for the specified platform to the current working directory. It is an intended future update to customize the driver download/launch locations for each project.
 
-This function will be called automatically during the `improved_webdriver.WebDriver` object initialization if it raises an error on its first attempt. 
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.

@@ -1,5 +1,4 @@
-from update_drivers import update_driver
-from improved_webdriver import WebDriver
+from easyselenium import WebDriver, update_driver
 
 #Automatically download and update the chromedriver based on the full path in .env
 update_driver('win64')
@@ -13,4 +12,4 @@ with WebDriver(headless = False,memory_structure = []) as driver:
     divs = driver.find_elements_by_css('div.game-card-name.game-name-title',wait = 10,errors = 'coerce')
     
     #Print top trending names of games in Roblox
-    print(list(filter(lambda x:x != "",[div.text for div in divs])))
+    print(f"The top trending game on Roblox right now is: {divs[0].text}")
