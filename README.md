@@ -42,8 +42,8 @@ driver = WebDriver(headless=True)
 # Initialize WebDriver with a custom memory structure
 driver = WebDriver(memory_structure={})
 
-#Initialize WebDriver, if unsuccesful try updating the chromedriver for windows and initialize again
-driver = WebDriver(headless = True, platform = 'win64')
+#Initialize WebDriver, using the specified chromedriver service
+driver = WebDriver(headless = True, CHROMEDRIVER_PATH=/c/some/path/to/chromedriver.exe)
 ```
 
 #### Parameters
@@ -92,11 +92,13 @@ from seleniumeasy import WebDriver
 
 with WebDriver(headless=True) as driver:
     driver.get('https://example.com')
+
     #This may not exist on the website, so in that case we'll just log that it wasn't found instead of halting the program
-    element = driver.find_element_by_id('example_id', wait=10, errors='raise')
+    element = driver.find_element_by_id('example_id', wait=10, errors='coerce')
     print(element.text if element else "Element not found")
+
     #This is essential for the program to run, raise an error if not found
-    elements = driver.find_elements_by_class('example_class', wait=10, errors='coerce')
+    elements = driver.find_elements_by_class('example_class', wait=10, errors='raise')
     for elem in elements:
         print(elem.text)
     #Create a BeautifulSoup parser of the driver (post JS-rendering)
