@@ -1,10 +1,7 @@
 # EasySelenium
 # Table of Contents
 1. [Overview](#overview)
-2. [Directory Structure](#directory-structure)
-3. [Configuration](#configuration)
-    1. [Setting up the `.env` file](#setting-up-the-env-file)
-    2. [Configuring a virutal environment](#setting-up-a-virtual-environment)
+2. [Configuration](#configuration)  
 4. [Usage](#usage)
     1. [Web Driver Class](#webdriver-class-usage)
     2. [Automatically Updating Chromedriver](#updating-chromedriver)
@@ -14,13 +11,16 @@
 The EasySelenium project is designed to make the `Selenium` module a little bit easier to use. It supports automatic chromedriver updates, and shorter syntax for finding_elements. 
 
 ### Modules
-- `improved_webdriver.py`: Contains the `WebDriver` class, which simplifies the use of Selenium WebDriver for web scraping. It includes methods for navigating web pages, finding elements with built-in EC delays, and passing Selenium content to BeautifulSoup.
-- `update_drivers.py`: Contains the `update_chromedriver` functions, which sends an HTML request, downloading the most recent version of *chromedriver.exe* in place, overwriting the existing chromedriver with the most recent version
+The two main funtions of the module can be imported using 
+```python
+from seleniumeasy import WebDrvier
+from seleniumeasy import update_driver
+```
 
-## Configuration
+# Configuration
 To easily download all repo code onto your local machine download the selenium-easy module from pip
 ```bash
-pip install selenium-easy
+pip install seleniumeasy
 ```
 # Usage
 
@@ -31,7 +31,7 @@ The `WebDriver` class is designed to simplify Selenium programming by reducing t
 ### Initialization
 
 ```python
-from improved_webdriver import WebDriver
+from seleniumeasy import WebDriver
 
 # Initialize WebDriver with default settings
 driver = WebDriver()
@@ -50,12 +50,7 @@ driver = WebDriver(headless = True, platform = 'win64')
 
 - `headless`: A boolean to determine whether the opened page will be visible. If `True`, the browser will run in headless mode (no GUI). Defaults to `False`.
 - `memory_structure`: A data structure to hold values for later use. Defaults to an empty list.
-- `platform`: In case of initialization failure, attempt to update `chromedriver.exe` by calling `update_drivers.update_chromedriver(platform)`. Defaults to 'win64' The available platforms are:
-    - `linux64`
-    - `mac-arm64`
-    - `mac-x64`
-    - `win32`
-    - `win64`
+- `CHROMEDRIVER_PATH`: The path to your `chromedriver.exe`, by default will assume the current working directory.
 
 ### Methods
 
@@ -93,7 +88,7 @@ soup = driver.get_soup()
 ### Example Usage
 
 ```python
-from improved_webdriver import WebDriver
+from seleniumeasy import WebDriver
 
 with WebDriver(headless=True) as driver:
     driver.get('https://example.com')
@@ -109,10 +104,9 @@ with WebDriver(headless=True) as driver:
 ```
 ## Updating Chromedriver
 
-The `update_drivers.update_driver` function allows you to download and update the chromedriver for different platforms.
+The `update_driver` function allows you to automatically download the most recent version of the chromedriver for an input Operating System.
 
 ### Platforms
-
 The available platforms are:
 - `linux64`
 - `mac-arm64`
@@ -123,7 +117,7 @@ The available platforms are:
 ### Example Usage
 
 ```python
-from update_drivers import update_driver
+from seleniumeasy import update_driver
 
 # Update chromedriver for Windows 64-bit
 update_driver('win64')
