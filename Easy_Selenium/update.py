@@ -15,7 +15,7 @@ logging.basicConfig(
     ]
 )
 
-CHROMEDRIVER_PATH = '.'
+CHROMEDRIVER_PATH = '/Users/richardquach/projects/webscraper'
 EXTRACTION_PATH = os.path.join(".","chromedriver.zip")
 
 def get_update_url(platform):
@@ -58,27 +58,21 @@ def download_zip_file(platform):
 def extract_specific_file(zip_file_path, platform, extract_to='.'):
     """
     Unzip the downloaded file and move the chromedriver to the specified location.
-
-    :param zip_file_path: The path to the zip file.
-    :param platform: The platform for which the chromedriver was downloaded.
-    :param extract_to: The directory to extract the chromedriver to.
     """
-    # Open the zip file in read mode
-    to_extract = f'chromedriver-{platform}/chromedriver.exe' #Python still interprets this as UNIX style joins, regardless of OS
+    to_extract = f'chromedriver-{platform}/chromedriver'
     with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
-        # Get the list of files in the zip
         zip_contents = zip_ref.namelist()
         print(zip_contents)
-        
         print(to_extract)
-        # Check if the specific file is in the zip file
         if to_extract in zip_contents:
-            # Extract the specific file to the desired location
-            with zip_ref.open(to_extract) as source, open(os.path.join(extract_to, 'chromedriver.exe'), 'wb') as target:
+            target_path = os.path.join(extract_to, 'chromedriver')
+            with zip_ref.open(to_extract) as source, open(target_path, 'wb') as target:
                 target.write(source.read())
-            print(f"Extracted 'chromedriver.exe' to: {os.path.abspath(os.path.join(extract_to, 'chromedriver.exe'))}")
+            # Set executable permissions after extraction
+            os.chmod(target_path, 0o755)
+            print(f"Extracted 'chromedriver' to: {os.path.abspath(target_path)}")
         else:
-            print("File 'chromedriver.exe' not found in the zip archive.")
+            print("File 'chromedriver' not found in the zip archive.")
 def update_driver(platform):
     """
     Update the chromedriver for the specified platform.

@@ -17,6 +17,7 @@ logging.basicConfig(
     ]
 )
 
+CHROMEDRIVER_PATH = os.getenv('CHROMEDRIVER_PATH', '/Users/richardquach/projects/webscraper/chromedriver')
 
 class WebDriver:
     """
@@ -29,7 +30,7 @@ class WebDriver:
     <headless>: boolean to determine whether to opened page will be visible
     <memory_structure>: a data structure to hold values for later use
     """
-    def __init__(self, Chromedriver_Path=os.path.join('.','chromedriver.exe'), headless=False, memory_structure=[]):
+    def __init__(self, Chromedriver_Path=os.getenv('CHROMEDRIVER_PATH', '/Users/richardquach/projects/webscraper/chromedriver'), headless=False, memory_structure=[]):
         """
         Initialize the WebDriver instance.
 
@@ -162,7 +163,7 @@ class WebDriver:
                 WebDriverWait(self.driver, wait).until(EC.presence_of_element_located((By.XPATH, xpath)))
             return self.driver.find_element(By.XPATH, xpath)
 
-    def find_element_by_xpath(self, xpath, wait=None, errors='raise'):
+    def find_elements_by_xpath(self, xpath, wait=None, errors='raise'):
         """
         Find multiple elements by their XPATH.
 
@@ -343,3 +344,6 @@ class WebDriver:
         """
         self.driver.quit()
         logging.info("WebDriver Closed")
+
+with WebDriver(headless=False, memory_structure=[], Chromedriver_Path='/Users/richardquach/projects/webscraper/chromedriver') as driver:
+    pass

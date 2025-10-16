@@ -1,47 +1,49 @@
 from Easy_Selenium import WebDriver, update_driver
 from selenium.common.exceptions import StaleElementReferenceException, NoSuchElementException
 import time
+import os
 
 # Automatically download and update the chromedriver based on the full path in .env
-update_driver('win64')
+update_driver('mac-x64')
 
 max_pages = 10 
 current_page = 0
 orginal_data = []
+
+CHROMEDRIVER_PATH = os.getenv('CHROMEDRIVER_PATH', '/Users/richardquach/projects/webscraper/chromedriver')
 
 with WebDriver(headless=False, memory_structure=[]) as driver:
     driver.get('https://beaconbio.org/en/')
     
     while current_page < max_pages:
         try:
-            # Attempt to find elements by css, waiting for 25 seconds before returning None
             divs = driver.find_elements_by_css('div.MuiBox-root.mui-1ntp5xn > a', wait=25, errors='coerce')
-            
+        
             if not divs:
                 print("No elements found on this page.")
                 break
-
-            # Print elements from current page
             for div in divs:
                 try:
-                    # Add a check to ensure element is still valid
+                    # Checkers
                     print(div.text)
                     orginal_data.append(div.text)
                 except StaleElementReferenceException:
                     print("Element became stale, skipping...")
                     continue
-
+            #Test
             current_page += 1
+            #print(divs)
+            #print(dates)
             print(f"Processed page {current_page}")
 
             try:
-                # Find next page clickable element (parent of svg icon)
+                # ID where button is to click
                 next_button = driver.find_element_by_css('button[aria-label="Go to next page"]', wait=25, errors='coerce')
                 
-                # Add a small wait to ensure page is ready
+                # Additional Wait Time
                 time.sleep(5)
                 
-                # Check if next button is enabled before clicking
+                # How to click button
                 if next_button and next_button.is_enabled():
                     next_button.click()
                 else:
@@ -52,7 +54,7 @@ with WebDriver(headless=False, memory_structure=[]) as driver:
                 print(f"Error navigating to next page: {nav_error}")
                 break
 
-            #Wait time
+            # Wait time
             time.sleep(5)
 
         except Exception as e:
